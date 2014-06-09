@@ -27,7 +27,7 @@
     
     <script>
     
-      function doSomething(evt) {
+      function seeChangedTab(evt) {
         var tab = dojo.query(evt.target).parents('.dijitTab')[0];
         if (tab) {
           if (tab.getAttribute('widgetID') == "leftTabs_tablist_dijit_layout_ContentPane_1") {
@@ -96,7 +96,7 @@
       </div>
       
       <div data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
-        <div data-dojo-type="dijit.layout.TabContainer" id="leftTabs" onClick="doSomething">
+        <div data-dojo-type="dijit.layout.TabContainer" id="leftTabs" onClick="seeChangedTab">
           <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tab 1', selected:'true'">
             Content for the first tab
           </div>
