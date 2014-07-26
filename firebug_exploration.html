@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Fun with Dojo!</title>
+    <link rel="stylesheet" type="text/css" href="http://o.aolcdn.com/dojo/1.1/dojo/resources/dojo.css" />
+    <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.1/dojo/dojo.xd.js" djConfig="isDebug:true">
+    </script>
+    <style type="text/css">
+      .blue {color: blue;}
+    </style>
+  </head>
+  <body>
+    <div id="d1" class="blue">
+      A div with id=d1 and class=blue
+    </div>
+    <div id="d2">
+      A div with id=d2
+    </div>
+    <div id="d2">
+      Another div with id=d2
+    </div>
+    <div id="d4">
+      A div with id=d3 (NOT ... it is d4 actually dude)
+      <span id="s1">
+        This sentence is in a span that's contained in d1 (only its not, its in d4). The span's id is s1 (this is the only true statement since d2).
+      </span>
+    </div>
+    <form name="foo" action="">
+      A form with name="foo"
+    </form>
+    <div id="foo">
+      A div with id=foo
+    </div>    
+  </body>
+</html>
