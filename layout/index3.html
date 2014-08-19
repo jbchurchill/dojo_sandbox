@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">  
+    <title></title>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="css/layout3.css"/>
+
+    <script>var dojoConfig = { parseOnLoad: true };</script>
+    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.5/dojo/dojo.js" data-dojo-config="async: true"></script>
+    <script>
+        require(["dojo/on", "dojo/dom"], function(on, dom) {
+        var myButton = dom.byID("leftTabs")
+        var handle = on(myButton, "select", function(evt){
+	    // Do other stuff here that you only want to happen one time
+	    alert("This alert will only happen one time.");
+	    });
+	  }
+
+    </script>
+    
+    <script>
+      dojo.require("dijit.layout.BorderContainer");
+      dojo.require("dijit.layout.ContentPane");
+      dojo.require("dijit.layout.TabContainer");
+      dojo.require("esri.map");
+      dojo.require("esri.arcgis.utils");
+      dojo.require("esri.IdentityManager");
+      dojo.require("dijit.layout.AccordionContainer");
+
+      var map;
+
+
+
+      function init() {
+        esri.config.defaults.io.proxyUrl = "/proxy";
+        //This service is for development and testing purposes only. We recommend that you create your own geometry service for use within your applications. 
+        esri.config.defaults.geometryService = new esri.tasks.GeometryService("http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+      
+        var urlObject = esri.urlToObject(document.location.href);
+        var webmap = "59357ba9bd06409a99c0eb89f9089a40";
+
+        if (urlObject.query) {
+          webmap = urlObject.query.webmap;
+
+        }
+   
+        var mapDeferred = esri.arcgis.utils.createMap(webmap, "map", {
+          mapOptions: {
+            sliderStyle: "large"
+          },
+          geometryServiceURL: "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+        });
+        mapDeferred.then(function(response) {
+          dojo.byId("title").innerHTML = response.itemInfo.item.title;
+          dojo.byId("dataSource").innerHTML = "<a target='_blank' href='http://www.arcgis.com/home/item.html?id=" + webmap + "'>View data details</a>";
+          map = response.map;
+        }, function(error) {
+          console.log("Map creation failed: ", dojo.toJson(error));
+        });
+      }      
+
+      //show map on load 
+      dojo.ready(init);
+    </script>
+    
+    <!-- Carousel Stuff -->
+    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="http://xsokev.github.io/Dojo-Bootstrap/css/prettify.css"><link rel="stylesheet" href="http://xsokev.github.io/Dojo-Bootstrap/css/styles.css"><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]--><link rel="shortcut icon" href="http://xsokev.github.io/Dojo-Bootstrap/img/ico/favicon.ico"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://xsokev.github.io/Dojo-Bootstrap/css/img/ico/apple-touch-icon-144-precomposed.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://xsokev.github.io/Dojo-Bootstrap/css/img/ico/apple-touch-icon-114-precomposed.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://xsokev.github.io/Dojo-Bootstrap/css/img/ico/apple-touch-icon-72-precomposed.png"><link rel="apple-touch-icon-precomposed" href="http://xsokev.github.io/Dojo-Bootstrap/css/img/ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+  
+  <body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline'"
+     style="width:100%; height:100%;">
+
+      <div id="header" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'">
+        <div id="title">
+        </div>
+      </div>
+      
+      <div data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
+        <div data-dojo-type="dijit.layout.TabContainer" id="leftTabs">
+          <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tab 1', selected:'true'">
+            Content for the first tab
+          </div>
+          <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tab 2'">
+            Content for the second tab
+          </div>
+        </div>
+      </div>
+
+      <div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'">
+      
+        <!-- Carousel Stuff -->
+       <div class="bs-docs-example"><div id="myCarousel" class="carousel slide"><ol class="carousel-indicators"><li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li><li data-target="#carousel-example-generic" data-slide-to="1"></li><li data-target="#carousel-example-generic" data-slide-to="2"></li><li data-target="#carousel-example-generic" data-slide-to="3"></li></ol><div class="carousel-inner"><div class="item active"><img src="http://xsokev.github.io/Dojo-Bootstrap/img/carousel-01.jpg" alt=""><div class="carousel-caption"><h4>First Thumbnail label</h4><p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p></div></div><div class="item"><img src="http://xsokev.github.io/Dojo-Bootstrap/img/carousel-02.jpg" alt=""><div class="carousel-caption"><h4>Second Thumbnail label</h4><p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p></div></div><div class="item"><img src="http://xsokev.github.io/Dojo-Bootstrap/img/carousel-03.jpg" alt=""><div class="carousel-caption"><h4>Third Thumbnail label</h4><p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p></div></div><div class="item"><img src="http://xsokev.github.io/Dojo-Bootstrap/img/carousel-04.jpg" alt=""><div class="carousel-caption"><h4>Fourth Thumbnail label</h4><p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p></div></div></div><a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div></div></div></div></div><script src="http://xsokev.github.io/Dojo-Bootstrap/js/config.js"></script><script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.3/dojo/dojo.js"></script><script src="http://xsokev.github.io/Dojo-Bootstrap/js/prettify.js"></script><script type="text/javascript" charset="utf-8">require([ 'dojo/query', 'http://xsokev.github.io/Dojo-Bootstrap/js/application.js', 'bootstrap/Carousel' ], function(q){
+          q('#myCarousel').carousel();
+        });</script><script type="text/javascript">var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5131920-5']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();</script>      
+        <!-- End Carousel Stuff -->
+            
+      
+      
+      </div>
+
+      <div id="footer" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'bottom'">
+        <span id="dataSource">
+        </span>
+      </div>
+
+    </div>
+  </body>
+
+</html>
