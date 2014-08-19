@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+  <title>Fun with the Genie!</title>
+  <!-- load Dojo -->
+  <script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.3/dojo/dojo.js"
+    djConfig = "modulePaths: {dtdg:'./dtdg'}, baseUrl: './'">
+  </script>
+  <script type="text/javascript">
+    // require in the module 
+    dojo.require("dtdg.Genie");
+    
+    // safely reference dtdg.Genie inside of addOnLoad
+    dojo.addOnLoad(function( ) {
+      // create an instance
+      var g = new dtdg.Genie;
+      
+      // fire it up, which takes care of the rest
+      g.initialize( );
+    });
+  </script>
+    
+</head>
+<body>
+  <h1 id="greeting">Fun with the Genie!</h1>
+</body>
+</html>
