@@ -16,7 +16,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.5/dojo/dojo.js" data-dojo-config="async: true"></script>
     <script>
         require(["dojo/on", "dojo/dom"], function(on, dom) {
-        var myButton = dom.byID("leftTabs")
+        var myButton = dom.byID("leftTabs");
         var handle = on(myButton, "select", function(evt){
 	    // Do other stuff here that you only want to happen one time
 	    alert("This alert will only happen one time.");
